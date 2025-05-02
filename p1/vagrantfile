@@ -1,55 +1,31 @@
-# kubernetes is a open source container managements system use for automating software deployments, scaling, managments 
-
-# bach mzyan :
-# auto deployment
-# scaling and load balancing 
-# managments
-
-# k8s architecture 
-# pod : have a container or plus
-# config / proxy
-# worker node 
 Vagrant.configure("2") do |config|
-    config.vm.define "Server" do |server|
-      server.vm.box = "hashicorp-education/ubuntu-24-04"
-      server.vm.hostname = "Server"
-      server.vm.network "private_network", ip: "192.168.56.110"
-      server.vm.provider "virtualbox" do |vb|
-        vb.name = "Server_VM"
-        vb.memory = "2048"
-        vb.cpus = 1
-      end
-  
-      # Provision using external shell script
-      server.vm.provision "shell", path: "scripts/server.sh"
-    end
-  end
-  
-  
-    # ServerWorker VM
-    config.vm.define "ServerWorker" do |serverworker|
-      serverworker.vm.box = "hashicorp-education/ubuntu-24-04"
-      serverworker.vm.box_version = "0.1.0"
-      serverworker.vm.hostname = "ServerWorker"
-      serverworker.vm.network "private_network", ip: "192.168.56.111"
-  
-      serverworker.vm.provider "virtualbox" do |vb|
-        vb.name = "ServerWorker_VM"
-        vb.memory = "1024"
-        vb.cpus = 1
-        vb.customize ["modifyvm", :id, "--cpuexecutioncap", "100"]
-      end
-  
-      # allow public key
-      serverworker.vm.provision "shell", inline: <<-SHELL
-        mkdir -p /home/vagrant/.ssh
-        chmod 700 /home/vagrant/.ssh
-        touch /home/vagrant/.ssh/authorized_keys
-        chmod 600 /home/vagrant/.ssh/authorized_keys
-        chown -R vagrant:vagrant /home/vagrant/.ssh
-      SHELL
-    end
-  end
-  
+  config.vm.box = "bento/debian-12"
 
+  # Controller node (Server)
+  config.vm.define "Server" do |server|
+    server.vm.hostname = "Server"
+    server.vm.network "private_network", ip: "192.168.56.110"
 
+    server.vm.provider "virtualbox" do |vb|
+      vb.name = "Server_VM"
+      vb.memory = "1024"
+      vb.cpus = 1
+    end
+
+    server.vm.provision "shell", path: "server.sh"
+  end
+
+  # Worker node (ServerWorker)
+  config.vm.define "ServerWorker" do |worker|
+    worker.vm.hostname = "ServerWorker"
+    worker.vm.network "private_network", ip: "192.168.56.111"
+
+    worker.vm.provider "virtualbox" do |vb|
+      vb.name = "ServerWorker_VM"
+      vb.memory = "1024"
+      vb.cpus = 1
+    end
+
+    worker.vm.provision "shell", path: "worker.sh"
+  end
+end
