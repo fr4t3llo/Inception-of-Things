@@ -1,0 +1,36 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: apps-ingress
+spec:
+  rules:
+  - host: tictactoe.example.com
+    http:
+      paths:
+      - path: /app1/app1.yaml
+        pathType: Prefix
+        backend:
+          service:
+            name: tictactoe-service
+            port:
+              number: 80
+  - host: rockpaperscissors.example.com
+    http:
+      paths:
+      - path: /app2/app2.yaml
+        pathType: Prefix
+        backend:
+          service:
+            name: rock-paper-scissors-service
+            port:
+              number: 80
+  - host: game2048.example.com
+    http:
+      paths:
+      - path: /app3/app3.yaml
+        pathType: Prefix
+        backend:
+          service:
+            name: game-2048-service
+            port:
+              number: 80
