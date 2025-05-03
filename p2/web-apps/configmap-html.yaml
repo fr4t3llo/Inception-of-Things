@@ -1,0 +1,43 @@
+# if you neeed to modify default html in nginx
+
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: custom-html
+# data:
+#   index.html: |
+#     <!DOCTYPE html>
+#     <html>
+#     <head>
+#       <title>Custom Nginx Page</title>
+#       <style>
+#         body {
+#           font-family: Arial, sans-serif;
+#           margin: 40px;
+#           color: #333;
+#           line-height: 1.6;
+#         }
+#         h1 {
+#           color: #0066cc;
+#         }
+#         .container {
+#           max-width: 800px;
+#           margin: 0 auto;
+#           padding: 20px;
+#           border: 1px solid #ddd;
+#           border-radius: 5px;
+#           background-color: #f9f9f9;
+#         }
+#       </style>
+#     </head>
+#     <body>
+#       <div class="container">
+#         <h1>Custom Kubernetes Nginx Page</h1>
+#         <p>This is a custom page served from my Kubernetes cluster!</p>
+#         <p>You've successfully modified the default nginx content.</p>
+#         <p>Container ID: <span id="container-id">CONTAINER_NAME</span></p>
+#       </div>
+#       <script>
+#       </script>
+#     </body>
+#     </html>

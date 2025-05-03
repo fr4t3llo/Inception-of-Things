@@ -4,33 +4,33 @@ metadata:
   name: apps-ingress
 spec:
   rules:
-  - host: tictactoe.example.com
+  - host: app1.com
     http:
       paths:
-      - path: /app1/app1.yaml
+      - path: /
         pathType: Prefix
         backend:
           service:
-            name: tictactoe-service
+            name: app1-service
             port:
               number: 80
-  - host: rockpaperscissors.example.com
+  - host: app2.com
     http:
       paths:
-      - path: /app2/app2.yaml
+      - path: /
         pathType: Prefix
         backend:
           service:
-            name: rock-paper-scissors-service
+            name: app2-service
             port:
               number: 80
-  - host: game2048.example.com
+  - host: app3.com
     http:
       paths:
-      - path: /app3/app3.yaml
+      - path: /
         pathType: Prefix
         backend:
           service:
-            name: game-2048-service
+            name: app3-service
             port:
               number: 80

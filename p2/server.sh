@@ -29,6 +29,8 @@ else
   exit 1
 fi
 
+echo "Waiting for k3s to be ready..."
+sleep 10
 
 if kubectl apply -f /vagrant/web-apps/app1/app1.yaml; then
   echo "app1 deployed"
@@ -49,8 +51,15 @@ else
 fi
  
 
+echo "Waiting for deployments to be ready..."
+sleep 10
+
+
 if kubectl apply -f /vagrant/web-apps/main.yaml; then
   echo "all apps deployed"
 else
    echo "Error: Failed deploy apps"
 fi
+
+
+
